@@ -1,0 +1,4 @@
+CENEO_URL=https://www.ceneo.pl/
+THREADS_AMOUNT=1
+OUTPUT=result
+DATA_FILE=data

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "lib": [
+      "dom",
+      "es2018"
+    ],
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "strict": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    // to debug
+    "inlineSources": true
+  },
+  "include": [
+    "./**/*.ts"
+  ],
+  "exclude": [
+    "./node_modules/*"
+  ]
+}
