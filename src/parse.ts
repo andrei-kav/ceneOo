@@ -6,13 +6,17 @@ export function parseDataVars(config: Record<string, string>, workDir: string): 
     const threadsAmount = +config['THREADS_AMOUNT'] || 1
     let output = config['OUTPUT'] || 'result'
     const dataFile = config['DATA_FILE'] || 'data'
+    const scriptType = config['SCRIPT_TYPE'] || ''
+    const waitDuring = +config['WAIT_DURING'] || 1000
+    const waitAfter = +config['WAIT_AFTER'] || 1000
+    const approaches = +config['APPROACHES'] || 1
 
     if (!path.isAbsolute(output)) {
         output = path.join(workDir, output)
     }
 
     return {
-        threadsAmount, output, dataFile
+        threadsAmount, output, dataFile, scriptType, waitDuring, waitAfter, approaches
     }
 }
 

@@ -4,17 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist/ && npm run lint && tsc -p tsconfig.json",
+    "build:dev": "rimraf dist/ && npm run lint && tsc -p tsconfig.json",
     "lint": "eslint .",
-    "start:dev": "npm run build && node dist/main.js"
+    "start:dev": "npm run build:dev && node dist/main.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
+    "jsdom": "^24.1.1",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@types/jsdom": "^21.1.7",
     "@types/node": "^20.14.11",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",

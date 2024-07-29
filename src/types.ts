@@ -1,7 +1,11 @@
 export interface Config {
     threadsAmount: number;
     output: string;
-    dataFile: string
+    dataFile: string;
+    scriptType: string;
+    waitDuring: number;
+    waitAfter: number;
+    approaches: number;
 }
 
 export interface Context extends Config {
@@ -23,7 +27,9 @@ export interface RawGoods {
     link: string;
 }
 
-export interface Goods extends RawGoods {
-    lowPrice: number;
-    highPrice: number;
+export interface GoodsPrice {
+    lowPrice: number | null;
+    highPrice: number | null;
 }
+
+export type Goods = RawGoods & GoodsPrice
