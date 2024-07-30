@@ -32,3 +32,9 @@ In the root folder you should have:
 2) open terminal at the root folder and run `scan-macos` in terminal `./scan-macos`
 3) or as an alternative as the first step open terminal and type `chmod -R 777 ./scan-macos`. Then you can just double click on `scan-macos`
 * If your OS is linux. Open terminal at the root folder and run `scan-linux` in terminal `./scan-linux`
+
+
+## Results
+
+* As the result of scanning the output folder is created in the root folder (It is called according to your `config` file). It contains the `result.xlsx` file with information
+* Also, the `logs` file is created. It contains all the messages appeared during the last scanning process
