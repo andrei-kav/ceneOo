@@ -3,10 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "pkg": {
+    "assets": [
+      "node_modules/**/*"
+    ]
+  },
   "scripts": {
     "build:dev": "rimraf dist/ && npm run lint && tsc -p tsconfig.json",
+    "build:prod": "rimraf dist/ && npm run lint && ncc build src/main.ts",
+    "build:exe": "npm run build:prod && pkg dist/index.js --output ./scan --targets node18-linux-x64,node18-macos-x64,node18-win-x64",
     "lint": "eslint .",
-    "start:dev": "npm run build:dev && node dist/main.js"
+    "start:dev": "npm run build:dev && node dist/main.js",
+    "start:prod": "npm run build:prod && node dist/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +28,8 @@
     "@types/node": "^20.14.11",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
-    "eslint": "^8.57.0"
+    "@vercel/ncc": "^0.38.1",
+    "eslint": "^8.57.0",
+    "pkg": "^5.8.1"
   }
 }
