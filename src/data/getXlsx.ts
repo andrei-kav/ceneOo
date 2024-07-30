@@ -3,7 +3,7 @@ import {Context, CustomError, EmbeddedSheets} from "../types";
 import * as xlsx from "xlsx";
 
 export function getXlsxFileData(context: Context): EmbeddedSheets {
-    const pathTo = path.join(context.workDir, 'resources', `${context.dataFile}.xlsx`)
+    const pathTo = path.join(context.workDir, `${context.dataFile}.xlsx`)
     return getData(pathTo)
 }
 
