@@ -59,13 +59,18 @@ async function handleOne(rawGoods: Array<RawGoods | Goods>, context: Context): P
     const results: Goods[] = []
 
     for (const item of rawGoods) {
+        if (!item.link) {
+            // do not do anything if the link is not defined
+            results.push({...item, highPrice: null, lowPrice: null})
+            continue
+        }
+        log(`Working on the goods ${item.name}, index: ${item.index}`)
         // @ts-expect-error item is possibly handled => return it and continue the loop
         if ([item.lowPrice, item.highPrice].every(property => typeof property === 'number')) {
             // the item is already scanned
             log(`The Item is OK, ${item.name}, index: ${item.index}`)
             results.push(item as Goods)
         } else {
-            log(`Working on the goods ${item.name}, index: ${item.index}`)
             const goods = await request(item, context.scriptType)
             results.push(goods)
         }
@@ -76,9 +81,10 @@ async function handleOne(rawGoods: Array<RawGoods | Goods>, context: Context): P
 
 function asyncTimeout(ms: number) {
     return (new Promise(resolve => {
+        log(`Waiting ${ms / 1000} seconds`)
         setTimeout(() => resolve(ms), ms)
-    })).then(d => {
-        log(`Waited ${d} seconds`)
+    })).then(() => {
+        log(`Wait is over`)
     });
 }
 

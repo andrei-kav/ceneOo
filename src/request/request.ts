@@ -5,11 +5,13 @@ import {log} from "../logs";
 export async function request(goods: RawGoods, scriptType: string): Promise<Goods> {
     log(`Requesting the ${goods.index}`);
 
+    const ifNotFound = { ...goods, lowPrice: null, highPrice: null }
     let response = null
     try {
         response = await fetch(goods.link)
     } catch (error) {
-        throw new CustomError("Fetching error: " + error);
+        log(`Fetching error: ${error}`);
+        return ifNotFound
     }
 
     if (response?.ok) {
@@ -23,7 +25,8 @@ export async function request(goods: RawGoods, scriptType: string): Promise<Good
             return { ...goods, lowPrice: null, highPrice: null }
         }
     } else {
-        throw new CustomError("HTTP error: " + response?.status);
+        log(`HTTP response error: ${response?.status}`);
+        return ifNotFound
     }
 }
 
@@ -38,12 +41,16 @@ function getGoodsInfo(xmlString: string, scriptType: string): GoodsPrice {
 
     const parsed = JSON.parse(script.textContent as string)
 
-    const lowPrice = parsed?.['offers']?.['lowPrice']
-    const highPrice = parsed?.['offers']?.['highPrice']
-    const price = parsed?.['offers']?.['price']
+    const offers = parsed?.['offers'];
+    let lowPrice = 0
+    let highPrice = 0
+
+    if (offers) {
+        lowPrice = offers['lowPrice'] ?? offers['price']
+        highPrice = offers['highPrice'] ?? offers['price']
+    }
 
     return {
-        lowPrice: lowPrice ?? price,
-        highPrice: highPrice ?? price,
+        lowPrice, highPrice
     }
 }
