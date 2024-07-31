@@ -8,7 +8,7 @@ export function writeResult(goods: Array<Goods>, context: Context) {
     const catalogToWrite = transformResult(goods)
     const workbook = xlsx.utils.book_new();
     const worksheet = xlsx.utils.aoa_to_sheet(catalogToWrite);
-    xlsx.utils.book_append_sheet(workbook, worksheet, 'main')
+    xlsx.utils.book_append_sheet(workbook, worksheet, context.sheetName)
 
     const now = new Date()
     const date = now.getDate()
