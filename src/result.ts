@@ -10,7 +10,17 @@ export function writeResult(goods: Array<Goods>, context: Context) {
     const worksheet = xlsx.utils.aoa_to_sheet(catalogToWrite);
     xlsx.utils.book_append_sheet(workbook, worksheet, 'main')
 
-    const pathToResult = path.join(context.output, 'result.xlsx')
+    const now = new Date()
+    const date = now.getDate()
+    const month = now.getMonth() + 1
+    const hours = now.getHours()
+    const minutes = now.getMinutes()
+    const seconds = now.getSeconds()
+
+    // format is 'dataFile_sheetName_day.month_hours.minutes.seconds'
+    const resultFileName = `${context.dataFile}_${context.sheetName}_${date}.${month < 10 ? '0' : ''}${month}_${hours}.${minutes < 10 ? '0' : ''}${minutes}.${seconds < 10 ? '0' : ''}${seconds}`
+
+    const pathToResult = path.join(context.output, `${resultFileName}.xlsx`)
     removePreviousResult(pathToResult)
     xlsx.writeFileXLSX(workbook, pathToResult)
 }

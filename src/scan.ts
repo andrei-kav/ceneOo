@@ -1,6 +1,5 @@
 import {Context, Goods, RawGoods} from "./types";
-import {getXlsxFileData} from "./data/getXlsx";
-import {parseRawGoodsData} from "./parse";
+import {getXlsxFileData} from "./data/xlsx";
 import {request} from "./request/request";
 import {writeResult} from "./result";
 import {log} from "./logs";
@@ -8,15 +7,14 @@ import {log} from "./logs";
 export async function scan(context: Context) {
     let rawGoods: Array<RawGoods> = []
     try {
-        const fileData = getXlsxFileData(context)
-        rawGoods = parseRawGoodsData(fileData['main'])
+        rawGoods = getXlsxFileData(context)
     } catch (e) {
         log(`Error during parsing initial data`)
         return Promise.reject(e)
     }
 
     const goods = await run(rawGoods, context)
-    log(`Scanning is finished. The result: ${goods}`)
+    log(`Scanning is finished. The result: ${goods.toString()}`)
     writeResult(goods, context)
 }
 

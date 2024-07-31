@@ -2,14 +2,14 @@ import {log, setupLogs} from "./logs";
 import fsPromises from "fs/promises";
 import path from "path";
 import dotenv from "dotenv";
-import {parseDataVars, parseOutputDir} from "./parse";
+import {parseConfigVars, parseOutputDir} from "./parse";
 import {scan} from "./scan";
 
 async function main() {
     const workDir = process.cwd()
     setupLogs(workDir)
     const rawConfig = await getEnvVars(workDir)
-    const config = parseDataVars(rawConfig, workDir)
+    const config = parseConfigVars(rawConfig, workDir)
     await parseOutputDir(config.output)
 
     await scan({...config, workDir})

@@ -2,6 +2,7 @@ export interface Config {
     threadsAmount: number;
     output: string;
     dataFile: string;
+    sheetName: string;
     scriptType: string;
     waitDuring: number;
     waitAfter: number;

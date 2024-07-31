@@ -4,9 +4,15 @@ import {log} from "../logs";
 
 export async function request(goods: RawGoods, scriptType: string): Promise<Goods> {
     log(`Requesting the ${goods.index}`);
-    const response = await fetch(goods.link)
 
-    if (response.ok) {
+    let response = null
+    try {
+        response = await fetch(goods.link)
+    } catch (error) {
+        throw new CustomError("Fetching error: " + error);
+    }
+
+    if (response?.ok) {
         const buffer: ArrayBuffer = await response.arrayBuffer();
         const xmlString = Buffer.from(buffer).toString('utf-8')
         try {
@@ -17,7 +23,7 @@ export async function request(goods: RawGoods, scriptType: string): Promise<Good
             return { ...goods, lowPrice: null, highPrice: null }
         }
     } else {
-        throw new CustomError("HTTP error: " + response.status);
+        throw new CustomError("HTTP error: " + response?.status);
     }
 }
 
