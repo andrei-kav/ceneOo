@@ -1,6 +1,7 @@
 CENEO_URL=https://www.ceneo.pl/
 OUTPUT=result
 DATA_FILE=data
+SHEET_NAME=main
 SCRIPT_TYPE=type
 APPROACHES=1
 THREADS_AMOUNT=1
